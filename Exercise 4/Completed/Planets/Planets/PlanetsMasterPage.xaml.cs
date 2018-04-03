@@ -7,7 +7,7 @@ namespace Planets
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PlanetsMasterPage : ContentPage
     {
-        public event EventHandler<Planet> MasterItemSelected;
+        public event EventHandler<int> MasterItemSelected;
 
         public PlanetsMasterPage()
         {
@@ -20,7 +20,8 @@ namespace Planets
 
         void MenuItemsListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            MasterItemSelected?.Invoke(sender, (Planet)e.SelectedItem);    
+            Planet planet = ((Planet)e.SelectedItem);
+            MasterItemSelected?.Invoke(sender, planet.Id);    
         }
     }
 }

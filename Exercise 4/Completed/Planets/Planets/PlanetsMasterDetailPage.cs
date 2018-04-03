@@ -7,18 +7,19 @@ namespace Planets
         public PlanetsMasterDetail()
         {
             var master = new PlanetsMasterPage();
+
             Master = master;
 
             master.MasterItemSelected += MasterItemSelected;
 
-            MasterItemSelected(this, PlanetDataRepository.GetPlanetFromId(0));
+            MasterItemSelected(this, 0);
         }
 
-        void MasterItemSelected(object sender, Planet e)
+        void MasterItemSelected(object sender, int id)
         {
-            Detail = new NavigationPage (new PlanetsDetailPage(e));
+            Detail = new NavigationPage (new PlanetsDetailPage(id));
 
-            if(CanChangeIsPresented)
+            if(Device.Idiom == TargetIdiom.Phone)
                 IsPresented = false;
         }
     }

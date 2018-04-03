@@ -15,10 +15,7 @@
         public string Atmosphere { get; set; }
 
 
-
         public int Id { get; set; }
-
-
 
 
         public override string ToString()

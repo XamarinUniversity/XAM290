@@ -161,4 +161,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\eris.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\nav-menu-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\nav-menu-icon%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\nav-menu-icon%403x.png" />
+  </ItemGroup>
 </Project>
