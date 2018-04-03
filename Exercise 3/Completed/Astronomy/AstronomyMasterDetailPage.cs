@@ -14,6 +14,8 @@ namespace Astronomy
 
             this.Master = master;
 
+            this.MasterBehavior = MasterBehavior.Popover;
+
             master.PageSelected += MasterPageSelected;
 
             PresentDetailPage(PageType.SunRise);
@@ -53,7 +55,12 @@ namespace Astronomy
 
             Detail = new NavigationPage(page);
 
-            IsPresented = false;
+            try
+            {
+                IsPresented = false;
+            }
+            catch { }
+            
         }
     }
 }
