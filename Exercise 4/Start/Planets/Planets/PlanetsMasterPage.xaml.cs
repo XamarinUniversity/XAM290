@@ -18,7 +18,7 @@ namespace Planets
 
         void MenuItemsListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-        
+            
         }
     }
 }

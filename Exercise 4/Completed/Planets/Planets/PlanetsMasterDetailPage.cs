@@ -6,8 +6,8 @@ namespace Planets
     {
         public PlanetsMasterDetail()
         {
-			MasterBehavior = MasterBehavior.Split;
-		
+            MasterBehavior = MasterBehavior.Split;
+
             var master = new PlanetsMasterPage();
 
             Master = master;

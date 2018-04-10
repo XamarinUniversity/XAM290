@@ -10,11 +10,11 @@
         </OnPlatform>
     </ContentPage.Icon>
 
-    <StackLayout VerticalOptions="StartAndExpand">
+    <StackLayout VerticalOptions="Fill">
         <ListView x:Name="MenuItemsListView"
-              HasUnevenRows="true"
-              ItemsSource="{Binding .}">
-           
+            HasUnevenRows="true"
+            ItemsSource="{Binding .}">
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -25,8 +25,8 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            
+
         </ListView>
     </StackLayout>
-    
+
 </ContentPage>

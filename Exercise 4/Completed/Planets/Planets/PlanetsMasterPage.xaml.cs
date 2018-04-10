@@ -21,7 +21,7 @@ namespace Planets
         void MenuItemsListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             Planet planet = ((Planet)e.SelectedItem);
-            MasterItemSelected?.Invoke(sender, planet.Id);    
+            MasterItemSelected?.Invoke(sender, planet.Id);
         }
     }
 }
