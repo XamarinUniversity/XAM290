@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 //
 // XAM206 - Exercise 1
@@ -9,20 +10,20 @@
 
 namespace PopoverVersusSplit
 {
-	public partial class App : Application
-	{
-		MasterDetailPage masterDetailPage;
+    public partial class App : Application
+    {
+        MasterDetailPage masterDetailPage;
 
-		public App ()
-		{
-			InitializeComponent();
+        public App()
+        {
+            InitializeComponent();
 
-			masterDetailPage = new MasterDetailPage();
+            masterDetailPage = new MasterDetailPage();
 
             //
             // Set up Master
             //
-            var colors = new string[] { "Yellow", "SpringGreen", "Cyan"};
+            var colors = new string[] { "Yellow", "SpringGreen", "Cyan" };
 
             var panel = new StackLayout();
 
@@ -34,26 +35,28 @@ namespace PopoverVersusSplit
             }
 
             masterDetailPage.Master = new ContentPage() { Content = panel, Title = "Popover vs Split" };
-			
-			//
-			// Initialize Detail
-			//
-			LoadDetailPage(colors[0]);
 
-			//masterDetailPage.MasterBehavior = MasterBehavior.Default;
-			masterDetailPage.MasterBehavior = MasterBehavior.Popover;
-			//masterDetailPage.MasterBehavior = MasterBehavior.Split;
-			//masterDetailPage.MasterBehavior = MasterBehavior.SplitOnLandscape;
-			//masterDetailPage.MasterBehavior = MasterBehavior.SplitOnPortrait;
+            //
+            // Initialize Detail
+            //
+            LoadDetailPage(colors[0]);
 
-			MainPage = masterDetailPage;
-		}
+            //masterDetailPage.MasterBehavior = MasterBehavior.Default;
+            masterDetailPage.MasterBehavior = MasterBehavior.Popover;
+            //masterDetailPage.MasterBehavior = MasterBehavior.Split;
+            masterDetailPage.MasterBehavior = MasterBehavior.SplitOnLandscape;
+            //masterDetailPage.MasterBehavior = MasterBehavior.SplitOnPortrait;
 
-		void LoadDetailPage(string message)
-		{
+            masterDetailPage.Master.On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
+
+            MainPage = masterDetailPage;
+        }
+
+        void LoadDetailPage(string message)
+        {
             var colorConverter = new ColorTypeConverter();
 
-            
+
             var page = new ContentPage()
             {
                 Content = new Label()
@@ -63,11 +66,12 @@ namespace PopoverVersusSplit
                 },
                 BackgroundColor = (Color)colorConverter.ConvertFromInvariantString(message),
             };
+            page.On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
 
-			masterDetailPage.Detail = page;
+            masterDetailPage.Detail = page;
 
-			if (masterDetailPage.CanChangeIsPresented)
-				masterDetailPage.IsPresented = false;
-		}
-	}
+            if (masterDetailPage.CanChangeIsPresented)
+                masterDetailPage.IsPresented = false;
+        }
+    }
 }
