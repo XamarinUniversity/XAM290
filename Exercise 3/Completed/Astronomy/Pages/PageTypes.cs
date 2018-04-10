@@ -7,7 +7,6 @@
         Earth,
         Moon,
         Sun,
-        HalleysComet,
         About,
     }
 }
