@@ -68,7 +68,7 @@ namespace PopoverVersusSplit
             };
             page.On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
 
-            masterDetailPage.Detail = page;
+            masterDetailPage.Detail = new NavigationPage(page);
 
             if (masterDetailPage.CanChangeIsPresented)
                 masterDetailPage.IsPresented = false;
