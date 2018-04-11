@@ -16,7 +16,7 @@ namespace Astronomy
 
             this.MasterBehavior = MasterBehavior.Popover;
 
-            this.Detail = new AboutPage();
+            this.Detail = new NavigationPage(new AboutPage());
         }
     }
 }
