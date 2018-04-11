@@ -44,7 +44,7 @@ namespace PopoverVersusSplit
             //masterDetailPage.MasterBehavior = MasterBehavior.Default;
             masterDetailPage.MasterBehavior = MasterBehavior.Popover;
             //masterDetailPage.MasterBehavior = MasterBehavior.Split;
-            masterDetailPage.MasterBehavior = MasterBehavior.SplitOnLandscape;
+            //masterDetailPage.MasterBehavior = MasterBehavior.SplitOnLandscape;
             //masterDetailPage.MasterBehavior = MasterBehavior.SplitOnPortrait;
 
             masterDetailPage.Master.On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
