@@ -124,7 +124,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\PopoverVersusSplit\PopoverVersusSplit.csproj">
-      <Project>{53375BAE-0A74-4F6B-BCBA-A65C376D0BC7}</Project>
+      <Project>{20F57E6A-9354-4EFD-B774-12E658E31591}</Project>
       <Name>PopoverVersusSplit</Name>
     </ProjectReference>
   </ItemGroup>
