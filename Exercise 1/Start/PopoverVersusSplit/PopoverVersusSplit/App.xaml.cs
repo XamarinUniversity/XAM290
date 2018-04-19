@@ -42,8 +42,8 @@ namespace PopoverVersusSplit
             LoadDetailPage(colors[0]);
 
             //masterDetailPage.MasterBehavior = MasterBehavior.Default;
-            masterDetailPage.MasterBehavior = MasterBehavior.Popover;
-            //masterDetailPage.MasterBehavior = MasterBehavior.Split;
+            //masterDetailPage.MasterBehavior = MasterBehavior.Popover;
+            masterDetailPage.MasterBehavior = MasterBehavior.Split;
             //masterDetailPage.MasterBehavior = MasterBehavior.SplitOnLandscape;
             //masterDetailPage.MasterBehavior = MasterBehavior.SplitOnPortrait;
 
@@ -59,10 +59,15 @@ namespace PopoverVersusSplit
 
             var page = new ContentPage()
             {
-                Content = new Label()
+                Content = new StackLayout()
                 {
-                    Text = message,
-                    FontAttributes = FontAttributes.Bold,
+                    Children = {
+                        new Label()
+                        {
+                            Text = message,
+                            FontAttributes = FontAttributes.Bold,
+                        },
+                    },
                 },
                 BackgroundColor = (Color)colorConverter.ConvertFromInvariantString(message),
             };

@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>PopoverVersusSplit.macOS</string>
+	<string>PopoverVersusSplit.MacOS</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.PopoverVersusSplit.PopoverVersusSplit-macOS</string>
+	<string>com.yourcompany.PopoverVersusSplit.PopoverVersusSplit-MacOS</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.7</string>
+	<string>10.13</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -24,8 +24,8 @@
 	<string></string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
+	<key>NSMainStoryboardFile</key>
+	<string>Main</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	
