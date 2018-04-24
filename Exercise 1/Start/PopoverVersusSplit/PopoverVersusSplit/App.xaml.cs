@@ -41,9 +41,9 @@ namespace PopoverVersusSplit
             //
             LoadDetailPage(colors[0]);
 
-            //masterDetailPage.MasterBehavior = MasterBehavior.Default;
+            masterDetailPage.MasterBehavior = MasterBehavior.Default;
             //masterDetailPage.MasterBehavior = MasterBehavior.Popover;
-            masterDetailPage.MasterBehavior = MasterBehavior.Split;
+            //masterDetailPage.MasterBehavior = MasterBehavior.Split;
             //masterDetailPage.MasterBehavior = MasterBehavior.SplitOnLandscape;
             //masterDetailPage.MasterBehavior = MasterBehavior.SplitOnPortrait;
 
