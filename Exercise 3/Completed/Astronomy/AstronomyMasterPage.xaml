@@ -12,7 +12,7 @@
 
         <BoxView BackgroundColor="Gray" HeightRequest="1" />
 
-        <Button x:Name="btnSunRise" Text="Sunrise and Sunset" />
+        <Button x:Name="btnSunrise" Text="Sunrise and Sunset" />
         <Button x:Name="btnMoonPhase" Text="Moon Phase" />
 
         <BoxView BackgroundColor="Gray" HeightRequest="1" />

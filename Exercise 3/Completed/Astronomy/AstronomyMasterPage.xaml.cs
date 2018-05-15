@@ -13,7 +13,7 @@ namespace Astronomy
             InitializeComponent();
 
             btnMoonPhase.Clicked += (s, e) => PageSelected?.Invoke(this, PageType.MoonPhase);
-            btnSunRise.Clicked += (s, e) => PageSelected?.Invoke(this, PageType.SunRise);
+            btnSunrise.Clicked += (s, e) => PageSelected?.Invoke(this, PageType.Sunrise);
             btnAbout.Clicked += (s, e) => PageSelected?.Invoke(this, PageType.About);
 
             btnEarth.Clicked += (s, e) => PageSelected?.Invoke(this, PageType.Earth);
