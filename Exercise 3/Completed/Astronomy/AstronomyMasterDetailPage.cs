@@ -18,7 +18,7 @@ namespace Astronomy
 
             master.PageSelected += MasterPageSelected;
 
-            PresentDetailPage(PageType.SunRise);
+            PresentDetailPage(PageType.Sunrise);
         }
 
         void MasterPageSelected(object sender, PageType e)
@@ -32,7 +32,7 @@ namespace Astronomy
 
             switch (pageType)
             {
-                case PageType.SunRise:
+                case PageType.Sunrise:
                     page = new SunrisePage();
                     break;
                 case PageType.MoonPhase:

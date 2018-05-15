@@ -2,7 +2,7 @@
 {
     public enum PageType
     {
-        SunRise,
+        Sunrise,
         MoonPhase,
         Earth,
         Moon,

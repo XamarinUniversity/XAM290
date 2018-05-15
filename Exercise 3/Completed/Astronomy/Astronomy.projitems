@@ -34,8 +34,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\PageTypes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\SunRisePage.xaml.cs">
-      <DependentUpon>SunRisePage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\SunrisePage.xaml.cs">
+      <DependentUpon>SunrisePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -62,7 +62,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\SunRisePage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\SunrisePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
