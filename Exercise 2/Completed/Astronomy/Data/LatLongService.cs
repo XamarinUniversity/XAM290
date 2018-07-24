@@ -1,27 +1,14 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Astronomy
 {
-    public class LatLongService
+    public class FakeLatLongService : ILatLongService
     {
-        const string freeGeoIpServiceUrl = "http://freegeoip.net/json/";
-
+        public static (double, double) RedmondCampusCoordinates = (47.641944, -122.127222);
         public async Task<(double Latitude, double Longitude)> GetLatLong()
         {
-            var json = await new HttpClient().GetStringAsync(freeGeoIpServiceUrl);
-
-            var data = JsonConvert.DeserializeObject<FreeGeoIpData>(json);
-
-            return (data.Latitude, data.Longitude);
-        }
-
-        class FreeGeoIpData
-        {
-            public string Ip { get; set; }
-            public double Latitude { get; set; }
-            public double Longitude { get; set; }
+            await Task.Delay(millisecondsDelay: 250);
+            return RedmondCampusCoordinates;
         }
     }
 }

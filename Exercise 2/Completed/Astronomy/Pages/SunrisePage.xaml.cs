@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -6,9 +7,12 @@ namespace Astronomy.Pages
 {
     public partial class SunrisePage : ContentPage
     {
+        ILatLongService LatLongService { get; set; }
+
         public SunrisePage ()
         {
             InitializeComponent ();
+            LatLongService = new FakeLatLongService();
         }
 
         protected override async void OnAppearing()
@@ -20,7 +24,7 @@ namespace Astronomy.Pages
 
         async Task InitializeUI ()
         {
-            var latLongData = await new LatLongService().GetLatLong();
+            var latLongData = await LatLongService.GetLatLong();
             var sunData = await new SunriseService().GetSunriseSunsetTimes(latLongData.Latitude, latLongData.Longitude);
 
             var riseTime = sunData.Sunrise.ToLocalTime();
@@ -28,6 +32,7 @@ namespace Astronomy.Pages
 
             var span = setTime.TimeOfDay - riseTime.TimeOfDay;
 
+            lblLocation.Text = $"Coordinates: {FakeLatLongService.RedmondCampusCoordinates.Item1.ToString("F", CultureInfo.InvariantCulture)}, {FakeLatLongService.RedmondCampusCoordinates.Item2.ToString("F", CultureInfo.InvariantCulture)}";
             lblDate.Text = DateTime.Today.ToString("D");
             lblSunrise.Text = riseTime.ToString("h:mm tt");
             lblDaylight.Text = $"{span.Hours} hours, {span.Minutes} minutes";

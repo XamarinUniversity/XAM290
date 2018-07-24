@@ -21,6 +21,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
             <Label Text="🌅" FontSize="72" Grid.Column="0" />
@@ -34,6 +35,8 @@
             <Label x:Name="lblSunrise" FontAttributes="None" Grid.Column="0" Grid.Row="2" />
             <Label x:Name="lblDaylight" FontAttributes="None" Grid.Column="1" Grid.Row="2" HorizontalTextAlignment="Center" />
             <Label x:Name="lblSunset" FontAttributes="None" Grid.Column="2" Grid.Row="2" />
+
+            <Label x:Name="lblLocation" FontSize="Micro" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" />
         </Grid>
     </StackLayout>
 </ContentPage>
