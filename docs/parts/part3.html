@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 3: Respond to drawer-menu selection to update your UI (XAM290)</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM290 Master-detail and drawer navigation</header>
+
+    <section id="main">
+        <h2>Exercise 3: Respond to drawer-menu selection to update your UI (XAM290)</h2>
+<p>In this exercise, you'll respond to selections made by the user on the drawer and update the presented details content.</p>
+<figure class="figure">
+<img src="./images/ex3-ios-popover.png" alt="Screenshot of the completed exercise." class="exercise portrait bordered" title="Completed exercise" />
+<figcaption class="figure-caption">Completed exercise</figcaption>
+</figure>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise is a continuation of the previous exercise. You can use your existing solution or begin from the prior <strong>Exercise 2</strong> &gt; <strong>Completed</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM290/">course materials</a>.</p>
+
+<hr>
+<h2>Create an enumeration for our app's pages</h2>
+<p>You'll define an enum that represents your app's pages. This will help code readability when raising selection events.</p>
+<ol>
+<li>Create a new file in the <strong>Astronomy</strong> shared project named <strong>PageTypes.cs</strong>.</li>
+<li>Define the <strong>Astronomy</strong> namespace.</li>
+<li>Create a new <code>enum</code> named <strong>PageType</strong>.</li>
+<li>Add values for each of your app's pages: Sunrise, MoonPhase, Earth, Moon, Sun, About.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>namespace Astronomy
+{
+    public enum PageType
+    {
+        Sunrise,
+        MoonPhase,
+        Earth,
+        Moon,
+        Sun,
+        About,
+    }
+}
+</code></pre>
+
+
+<hr>
+<h2>Raise a selection event</h2>
+<p>Your application presents several buttons in the master page to perform navigation, but they're currently not doing any work. You'll add an event to the master page and raise the event when the buttons are pressed.</p>
+<ol>
+<li>Open <strong>AstronomyMaster.xaml.cs</strong>.</li>
+<li>Create a new public event named <strong>PageSelected</strong> that provides a <code>PageType</code>.</li>
+<li>In the constructor, add <code>Clicked</code> event handlers for each button that raise the <strong>PageSelected</strong> event with an appropriate <code>PageType</code> value.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public partial class AstronomyMasterPage : ContentPage
+{
+    public event EventHandler&lt;PageType&gt; PageSelected;
+
+    public AstronomyMasterPage()
+    {
+        InitializeComponent();
+
+        btnMoonPhase.Clicked += (s, e) =&gt; PageSelected?.Invoke(this, PageType.MoonPhase);
+        btnSunrise.Clicked += (s, e) =&gt; PageSelected?.Invoke(this, PageType.Sunrise);
+        btnAbout.Clicked += (s, e) =&gt; PageSelected?.Invoke(this, PageType.About);
+
+        btnEarth.Clicked += (s, e) =&gt; PageSelected?.Invoke(this, PageType.Earth);
+        btnMoon.Clicked += (s, e) =&gt; PageSelected?.Invoke(this, PageType.Moon);
+        btnSun.Clicked += (s, e) =&gt; PageSelected?.Invoke(this, PageType.Sun);
+    }
+}
+</code></pre>
+
+
+<hr>
+<h2>Present the Details page</h2>
+<p>You'll add a helper method in your <strong>MasterDetailPage</strong> that updates the detail page based on a passed-in PageType enum.</p>
+<ol>
+<li>Add a new void method named <strong>PresentDetailPage</strong> that accepts a <code>PageType</code>.</li>
+<li>Create a local <code>Page</code> variable named <strong>page</strong>.</li>
+<li>Add a <code>switch</code> statement based on the passed in <code>PageType</code>. For each value, instantiate the appropriate detail page and assign it to the local <code>page</code> variable.</li>
+<li>After the switch statement, assign <strong>page</strong> to the <code>Detail</code> property.</li>
+<li>&quot;Wrap&quot; <strong>page</strong> in a <code>NavigationPage</code> to ensure the menu icon displays on Android devices.</li>
+<li>Close the drawer by setting <code>IsPresented</code> to <code>false</code>.</li>
+<li>Optional, update the default <code>Detail</code> assignment to use the new <code>PresentDetailPage</code> method.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>void PresentDetailPage(PageType pageType)
+{
+    Page page;
+
+    switch (pageType)
+    {
+        case PageType.Sunrise:
+            page = new SunrisePage();
+            break;
+        case PageType.MoonPhase:
+            page = new MoonPhasePage();
+            break;
+        case PageType.Earth:
+            page = new AstronomicalBodyPage(SolarSystemData.Earth);
+            break;
+        case PageType.Moon:
+            page = new AstronomicalBodyPage(SolarSystemData.Moon);
+            break;
+        case PageType.Sun:
+            page = new AstronomicalBodyPage(SolarSystemData.Sun);
+            break;
+        case PageType.About:
+        default:
+            page = new AboutPage();
+            break;
+    }
+
+    Detail = new NavigationPage(page);
+
+    IsPresented = false;
+}
+</code></pre>
+
+
+<hr>
+<h2>Update the Detail page on selection</h2>
+<p>You're now ready to respond to selection events. You'll subscribe in the master-detail page and update the details UI.</p>
+<ol>
+<li>In the <strong>AstronomyMasterDetailPage.cs</strong> constructor, subscribe to the new <code>MasterPageSelected</code> event. When the event is raised, call the <code>PresentDetailsPage</code>, passing in the provided <code>PageType</code>.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public AstronomyMasterDetailPage()
+{
+    var master = new AstronomyMasterPage();
+
+    ...
+
+    master.PageSelected += MasterPageSelected;
+
+    PresentDetailPage(PageType.Sunrise);
+}
+
+void MasterPageSelected(object sender, PageType e)
+{
+    PresentDetailPage(e);
+}
+</code></pre>
+
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you added the infrastructure code to handle drawer-menu selection for detail navigation via an event fired by your master page.</p>
+<p>You can view the completed solution in the <strong>Exercise 3</strong> &gt; <strong>Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM290/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

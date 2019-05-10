@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 4: Display a master-detail split view of a collection (XAM290)</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM290 Master-detail and drawer navigation</header>
+
+    <section id="main">
+        <h2>Exercise 4: Display a master-detail split view of a collection (XAM290)</h2>
+<p>In this exercise, you will use a MasterDetailPage to display and navigate a homogeneous collection of data with a list/detail side-by-side presentation.</p>
+<figure class="figure">
+<img src="./images/ex4-ios-masterlist.png" alt="Screenshot of the completed exercise." class="exercise portrait bordered" title="Completed exercise" />
+<figcaption class="figure-caption">Completed exercise</figcaption>
+</figure>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>Open the starter solution from the <strong>Exercise 4</strong> &gt; <strong>Start</strong> folder in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM290/">course materials</a> in either <strong>Visual Studio</strong> on Windows or <strong>Visual Studio for Mac</strong>.</p>
+<ol>
+<li>Launch <strong>Visual Studio</strong></li>
+<li>Open <strong>Exercise 4/Start/Planets.sln</strong></li>
+<li>Open <strong>PlanetsMasterPage.xaml</strong> in the shared project. Notice it's using a <code>ListView</code> and the binding is assigned in the code-behind.</li>
+<li>Open <strong>PlanetsDetailPage.xaml</strong> in the shared project. Notice it's basic content page that contains an image and several labels.</li>
+<li>Run the application, it should display a list of astronomy-related items.</li>
+</ol>
+
+<hr>
+<h2>Raise a selection event</h2>
+<p>We'll create an event on the master page so we can be notified when the user makes a selection.</p>
+<ol>
+<li>Open <strong>PlanetsMasterPage.xaml.cs</strong> in the shared project.</li>
+<li>Create a new event named <strong>MasterItemSelected</strong> that provides an <code>int</code>. This will be the index of the selected item from the list.</li>
+<li>Inspect the constructor, notice that we're subscribed to the <code>ListView</code>'s <code>ItemSelected</code> event with a named method.</li>
+<li>In <strong>MenuItemsListViewItemsSelected</strong>, create a local <code>Planet</code> variable.</li>
+<li>Cast and assign <code>e.SelectedItem</code> to the local <strong>planet</strong> variable.</li>
+<li>Raise the <code>MasterItemSelected</code> event, passing in the Id from the planet model object.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public partial class PlanetsMasterPage : ContentPage
+{
+    public event EventHandler&lt;int&gt; MasterItemSelected;
+
+    public PlanetsMasterPage()
+    {
+        ...
+
+        MenuItemsListView.ItemSelected += MenuItemsListViewItemSelected;
+    }
+
+    void MenuItemsListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+        Planet planet = ((Planet)e.SelectedItem);
+        MasterItemSelected?.Invoke(sender, planet.Id);
+    }
+}
+</code></pre>
+
+
+<hr>
+<h2>Populate the Detail UI with data</h2>
+<p>Your detail page currently doesn't present any content. You'll update the constructor to accept a planet model object and use it as the binding context.</p>
+<ol>
+<li>Open <strong>PlanetsDetailsPage.xaml</strong> in the shared project. Notice that the labels' Text properties are already configured for data binding.</li>
+<li>Open <strong>PlanetsDetailPage.xaml.cs</strong>.</li>
+<li>Update the constructor to accept an <code>int</code> named <strong>id</strong>.</li>
+<li>Create a local <code>Planet</code> variable named <strong>planet</strong>.</li>
+<li>Use the static <code>PlanetDataRepository.GetPlanetFromId</code> method to assign <strong>planet</strong>.</li>
+<li>Assign <strong>planet</strong> as the binding context.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public PlanetsDetailPage(int id)
+{
+    InitializeComponent();
+
+    var planet = PlanetDataRepository.GetPlanetFromId(id);
+
+    BindingContext = planet;
+}
+</code></pre>
+
+
+<hr>
+<h2>Create a MasterDetailPage</h2>
+<ol>
+<li>Create a new class named <strong>PlanetsMasterDetail</strong> in the shared project.</li>
+<li>Update the class signature to derive from <code>MasterDetailPage</code>.</li>
+<li>Add a default constructor.</li>
+<li>In the constructor, create a local instance of <code>PlanetsMasterPage</code> named <strong>master</strong>.</li>
+<li>Assign <strong>master</strong> to the <code>Master</code> property.</li>
+<li>Set the <code>MasterBehavior</code> to <code>Split</code>.</li>
+<li>Subscribe to <strong>master</strong>'s <code>MasterItemSelected</code> event using a method named <code>MasterItemSelected</code>.</li>
+<li>Call <code>MasterItemSelected</code> from the constructor with a default value of <code>0</code>. We'll use this in a moment to assign a default details page.</li>
+<li>Open <strong>App.xaml.cs</strong> and change the <code>MainPage</code> assignment to an instance of your <strong>PlanetsMasterDetail</strong> page.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public class PlanetsMasterDetail : MasterDetailPage
+{
+    public PlanetsMasterDetail()
+    {
+        MasterBehavior = MasterBehavior.Split;
+
+        var master = new PlanetsMasterPage();
+
+        Master = master;
+
+        master.MasterItemSelected += MasterItemSelected;
+
+        MasterItemSelected(this, 0);
+    }
+
+    void MasterItemSelected(object sender, int id)
+    {
+  
+    }
+}
+</code></pre>
+
+
+<hr>
+<h2>Update the detail page</h2>
+<ol>
+<li>In <code>MasterItemSelected</code>, assign the <code>Detail</code> property with an instance of <code>PlanetsDetailPage</code>. Pass <strong>id</strong> to the constructor.</li>
+<li>To ensure your app displays a menu icon on Android phones, &quot;wrap&quot; the <code>PlanetsDetailPage</code> instance in a <code>NavigationPage</code> before the <code>Detail</code> assignment.</li>
+<li>And finally, to ensure your app behaves correctly on all phones, set <code>IsPresented</code> to <code>false</code> when running on a phone. Alternatively, you can wrap the assignment in a try/catch.</li>
+<li>Run the application to verify your details update when picking a new item from the master list.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>void MasterItemSelected(object sender, int id)
+{
+    Detail = new NavigationPage(new PlanetsDetailPage(id));
+
+    if (Device.Idiom == TargetIdiom.Phone)
+        IsPresented = false;
+}
+</code></pre>
+
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you implemented a master-detail UI to browse a collection of data in a Xamarin.Forms application. You also ensured the application behaves correctly on all supported devices, include phones.</p>
+<p>You can view the completed solution in the <strong>Exercise 4</strong> &gt; <strong>Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM290/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

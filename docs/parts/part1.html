@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 1: Control the Master behavior of a MasterDetailPage (XAM290)</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM290 Master-detail and drawer navigation</header>
+
+    <section id="main">
+        <h2>Exercise 1: Control the Master behavior of a MasterDetailPage (XAM290)</h2>
+<p>In this exercise, you'll influence how a <code>MasterDetailPage</code> presents the master UI for drawer and master-detail UI.</p>
+<figure class="figure">
+<img src="./images/ex1-uwp-split.png" alt="Screenshot of the completed exercise." class="exercise bordered" title="Completed exercise" />
+<figcaption class="figure-caption">Completed exercise</figcaption>
+</figure>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>Open the starter solution from the <strong>Exercise 1</strong> &gt; <strong>Start</strong> folder in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM290/">course materials</a> in either <strong>Visual Studio</strong> on Windows or <strong>Visual Studio for Mac</strong>.</p>
+
+<hr>
+<h2>Explore the code</h2>
+<p>This is a minimal application to demonstrate master-detail and drawer navigation in Xamarin.Forms. All of the code you'll be using is in <strong>App.xaml.cs</strong>, and the UI is defined programmatically.</p>
+<ol>
+<li>Open <strong>App.xaml.cs</strong>.</li>
+<li>Find the constructor: notice it's defining both the data and the UI. This application allows you to switch between details for three (3) different colors.</li>
+<li>Find the assignment for <code>masterDetailPage.MasterBehavior</code>: notice it's set to <code>MasterBehavior.Popover</code>.</li>
+<li>Run the application on any platform/device. Use the menu icon in the top left to open the drawer and update the presented color details page.</li>
+</ol>
+
+<hr>
+<h2>Change the master behavior</h2>
+<ol>
+<li>Change the <code>MasterBehavior</code> assignment to <code>Split</code> and run on a phone device or simulator. Verify that it still uses popover behavior.</li>
+<li>Change the <code>MasterBehavior</code> assignment to <code>SplitOnLandscape</code> and <code>SplitOnPortrait</code> and run the application on a tablet or desktop each time. Does it behave as expected?</li>
+<li>Run the application on a desktop. Does the behavior change if you resize the window? Do you see the behavior you expect?</li>
+</ol>
+<figure class="figure">
+<img src="images/ex1-uwp-splitonlandscape-narrow.png" alt="Screenshot" />
+</figure>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you influenced the presentation of the master page when using a MasterDetailPage. The default behavior may not be exactly as you expected. Understanding how Xamarin.Forms changes behavior based on idiom and orientation is very important when creating applications that run on a large range of device types. Note: Since you're just altering the MasterBehavior, there isn't any Completed solution for this exercise.</p>
+<p>You can view the completed solution in the <strong>Exercise 1</strong> &gt; <strong>Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM290/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>
